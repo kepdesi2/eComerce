@@ -1,7 +1,8 @@
 package org.o7planning.springmvcshoppingcart.controller;
  
 import java.io.IOException;
- 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
@@ -243,6 +244,9 @@ public class MainController {
             // Need: Propagation.NEVER?
             return "shoppingCartConfirmation";
         }
+
+        
+        
         // Remove Cart In Session.
         Utils.removeCartInSession(request);
          

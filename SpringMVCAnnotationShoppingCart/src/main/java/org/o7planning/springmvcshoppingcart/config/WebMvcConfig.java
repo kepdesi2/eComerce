@@ -3,15 +3,20 @@ package org.o7planning.springmvcshoppingcart.config;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
- 
+
+import org.o7planning.springmvcshoppingcart.view.ItextPdfView;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+
  
 @Configuration
 @EnableWebMvc
@@ -42,6 +47,27 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
+    }
+    
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer
+                .defaultContentType(MediaType.TEXT_HTML)
+                .parameterName("type")
+                .favorParameter(true)
+                .ignoreUnknownPathExtensions(false)
+                .ignoreAcceptHeader(false)
+                .useJaf(true);
+    }
+
+    @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        registry.jsp("/WEB-INF/pages/", ".jsp");
+        registry.enableContentNegotiation(
+                new ItextPdfView()
+                // Use either ItextPdfView or LowagiePdfView
+                // new LowagiePdfView()
+        );
     }
  
 }

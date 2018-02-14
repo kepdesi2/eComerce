@@ -72,7 +72,8 @@
 				</ul>
           </div>
       </c:forEach>
- 
+	  <br>
+	  <a href=".pdf">Ver PDF</a>
   </div>
  
   <jsp:include page="_footer.jsp" />
